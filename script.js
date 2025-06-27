@@ -1,40 +1,32 @@
-//your JS code here. If required.
+let age = document.querySelector("#age");
+let nameInput = document.querySelector("#name");
+let btn = document.querySelector("#btn");
 
-
-
-let age=document.querySelector("#age");
-
-let name=document.querySelector("#name");
-
-let btn=document.querySelector("button");
-
-
-btn.addEventListener("click",(e)=>{
-
+btn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    
-    if((age.value=="") || (name.value=="")){
-        alert("Please enter valid details.")
+    const userAge = age.value.trim();
+    const userName = nameInput.value.trim();
+
+    // Validation
+    if (userAge === "" || userName === "") {
+        alert("Please enter valid details");
+        return;
     }
 
-else if(age.value>18){
+    // Convert age to number
+    const ageNum = Number(userAge);
 
-
- 
-   setTimeout(() => {
-    alert("Welcome, . You can vote.");
-}, 4000);
-
-    }
-
-    else{
+    // Promise
+    new Promise((resolve, reject) => {
         setTimeout(() => {
-    alert("Oh sorry . You aren't old enough.");
-}, 4000);
-
-    }
-
-
-})
-
+            if (ageNum > 18) {
+                resolve(`Welcome, ${userName}. You can vote.`);
+            } else {
+                reject(`Oh sorry ${userName}. You aren't old enough.`);
+            }
+        }, 4000);
+    })
+    .then((message) => alert(message))
+    .catch((error) => alert(error));
+});
